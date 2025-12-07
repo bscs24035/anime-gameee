@@ -8,97 +8,193 @@
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
-    background: linear-gradient(270deg, #ff9ccf, #ff6fa3);
+    background: linear-gradient(135deg, #ff9ccf, #ff6fa3, #6fd6ff, #ffeb99);
     background-size: 400% 400%;
     color: #fff;
     padding: 50px;
-    animation: gradientBG 15s ease infinite;
-    transition: background 0.5s;
+    animation: gradientBG 25s ease infinite;
+    overflow-x: hidden;
   }
 
   @keyframes gradientBG {
     0%{background-position:0% 50%}
+    25%{background-position:50% 100%}
     50%{background-position:100% 50%}
+    75%{background-position:50% 0%}
     100%{background-position:0% 50%}
   }
 
   h1 {
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px #000;
+    font-size: 3.2em;
+    color: #fff;
+    text-shadow: 0 0 15px #ff99cc, 0 0 25px #ff6fa3, 0 0 35px #ff4d94;
   }
-  .card {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    margin: 20px auto;
-    border-radius: 20px;
-    width: 90%;
+
+  .intro, .card, .game-ui {
     max-width: 600px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    transition: transform 0.3s;
+    margin: 0 auto;
   }
-  .card.animate {
-    transform: scale(1.05);
+
+  .intro {
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.7);
   }
-  #characterImage {
-    width: 80%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 15px;
-    object-fit: cover;
-    margin-bottom: 15px;
+
+  .intro p {
+    font-size: 1.5em;
+    line-height: 1.6em;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0,0,0,0.7);
   }
-  #characterName {
-    font-size: 2em;
-    margin-bottom: 15px;
-    color: #ffe6f0;
-    text-shadow: 1px 1px 3px #000;
-  }
-  #progress {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #ffd6e8;
-  }
-  button {
-    font-size: 18px;
-    padding: 12px 25px;
-    margin: 10px;
-    border-radius: 15px;
+
+  .start-btn {
+    font-size: 1.8em;
+    padding: 15px 35px;
+    border-radius: 30px;
     border: none;
     cursor: pointer;
-    transition: all 0.2s;
+    background: linear-gradient(45deg, #ff4d4d, #ff99cc, #ffeb99);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    transition: all 0.3s;
   }
-  button:hover:enabled {
+
+  .start-btn:hover {
     transform: scale(1.1);
+    box-shadow: 0 0 35px rgba(255,255,255,0.9);
   }
-  .smash { background: #ff4d4d; color: white; }
-  .pass { background: #888; color: white; }
+
+  .card {
+    display: none; /* hide game card initially */
+    position: relative;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    margin: 20px auto;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 50px rgba(0,0,0,0.7);
+    border: 4px solid transparent;
+    background-clip: padding-box;
+    animation: neonBorder 2.5s linear infinite alternate;
+    transition: transform 0.3s;
+  }
+
+  @keyframes neonBorder {
+    0% { border-image: linear-gradient(45deg, #ff4d4d, #ff99cc, #ffeb99, #6fd6ff) 1; }
+    50% { border-image: linear-gradient(45deg, #6fd6ff, #ffeb99, #ff99cc, #ff4d4d) 1; }
+    100% { border-image: linear-gradient(45deg, #ff4d4d, #ff99cc, #ffeb99, #6fd6ff) 1; }
+  }
+
+  #characterImage {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 5px solid rgba(255,255,255,0.7);
+    box-shadow: 0 0 35px rgba(255,255,255,0.5);
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  #characterName {
+    font-size: 3em;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #ff99cc, #ff4d94, #6fd6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(0,0,0,0.7), 0 0 20px rgba(255,255,255,0.3);
+  }
+
+  #progress {
+    font-size: 1.7em;
+    margin-bottom: 15px;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0,0,0,0.7), 0 0 10px rgba(255,255,255,0.3);
+  }
+
+  button {
+    font-size: 1.7em;
+    padding: 15px 35px;
+    margin: 12px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: linear-gradient(45deg, #ff4d4d, #ff99cc, #ffeb99);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    position: relative;
+    overflow: hidden;
+  }
+
+  button.pass {
+    background: linear-gradient(45deg, #888, #555, #aaa);
+  }
+
+  button:hover:enabled {
+    transform: scale(1.15);
+    box-shadow: 0 0 35px rgba(255,255,255,0.9);
+  }
+
   #score {
-    margin-top: 20px;
-    font-size: 22px;
-    text-shadow: 1px 1px 2px #000;
+    margin-top: 25px;
+    font-size: 2.5em;
+    color: #fff;
+    text-shadow: 0 0 15px #ff99cc, 0 0 25px #ff4d94, 0 0 35px #6fd6ff;
   }
+
   #gameOver {
-    font-size: 1.8em;
-    margin-top: 20px;
+    font-size: 2.5em;
+    margin-top: 25px;
     color: #ffd700;
+    text-shadow: 0 0 10px #fff, 0 0 20px #ffd700, 0 0 30px #ff9900;
   }
 </style>
 </head>
 <body>
 
 <h1>Smash or Pass: Anime Edition</h1>
+
+<!-- Introduction Page -->
+<div class="intro" id="introPage">
+  <p>Welcome to <strong>Smash or Pass: Anime Edition</strong>! 💖</p>
+  <p>Rules:</p>
+  <ul style="text-align:left; font-size:1.4em;">
+    <li>You'll see a series of anime characters.</li>
+    <li>Click <strong>❤️ Smash</strong> if you like them.</li>
+    <li>Click <strong>❌ Pass</strong> if you don't.</li>
+    <li>Your score will increase for every "Smash" you choose.</li>
+    <li>Try to get the highest score!</li>
+  </ul>
+  <button class="start-btn" onclick="startGame()">Start Game</button>
+</div>
+
+<!-- Game Card -->
 <div class="card" id="characterCard">
   <p id="progress">0 / 51</p>
   <img id="characterImage" src="" alt="Character Image">
   <p id="characterName">Loading...</p>
 </div>
-<button class="smash" onclick="choose('smash')">❤️ Smash</button>
-<button class="pass" onclick="choose('pass')">❌ Pass</button>
 
+<!-- Buttons -->
+<div class="game-ui" id="gameUI" style="display:none;">
+  <button class="smash" onclick="choose('smash')">❤️ Smash</button>
+  <button class="pass" onclick="choose('pass')">❌ Pass</button>
+</div>
+
+<!-- Score & Game Over -->
 <div id="score">Score: 0</div>
 <div id="gameOver"></div>
 
 <script>
+// Characters array here (same as before)
 const characters = [
   {name: "akaza", img: "images/akaza.jpg"},
   {name: "tanjiro", img: "images/tanjiro.jpg"},
@@ -107,7 +203,7 @@ const characters = [
   {name: "yuji", img: "images/yuji.jpg"},
   {name: "light", img: "images/light.jpg"},
   {name: "l", img: "images/l.jpg"},
-  {name: "muzan (michael jackson)", img: "images/muzan.jpg"},
+  {name: "muzan (michael jackson)", img: "images/mozan.jpg"},
   {name: "giyu", img: "images/giyu.jpg"},
   {name: "megumi", img: "images/megumi.jpg"},
   {name: "kokichi muta", img: "images/muta.jpg"},
@@ -150,11 +246,24 @@ const characters = [
   {name: "gevanni", img: "images/gevanni.jpg"},
   {name: "matsuda", img: "images/matsuda.jpg"},
   {name: "jin", img: "images/crack.jpg"},
+  {name: "loid", img: "images/loid.jpg"},
+  {name: "sung jin woo", img: "images/jw.jpg"},
+  {name: "hikaru", img: "images/hikaru.jpg"},
+  {name: "eren jaeger", img: "images/eren.jpg"},
+  {name: "lelouch", img: "images/lelouch.jpg"},
   {name: "makima", img: "images/makima.jpg"}
 ];
 
 let currentIndex = 0;
 let score = 0;
+
+function startGame() {
+  document.getElementById('introPage').style.display = 'none';
+  document.getElementById('characterCard').style.display = 'block';
+  document.getElementById('gameUI').style.display = 'block';
+  shuffle(characters);
+  showCharacter();
+}
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -167,20 +276,16 @@ function showCharacter() {
   if(currentIndex < characters.length){
     const card = document.getElementById('characterCard');
     card.classList.remove('animate');
-    void card.offsetWidth; // trigger reflow
+    void card.offsetWidth;
     card.classList.add('animate');
 
     const character = characters[currentIndex];
     document.getElementById('characterName').innerText = character.name;
     document.getElementById('characterImage').src = character.img;
     document.getElementById('progress').innerText = `${currentIndex + 1} / ${characters.length}`;
-
-    document.querySelector('.smash').disabled = false;
-    document.querySelector('.pass').disabled = false;
   } else {
     document.getElementById('characterCard').style.display = 'none';
-    document.querySelector('.smash').style.display = 'none';
-    document.querySelector('.pass').style.display = 'none';
+    document.getElementById('gameUI').style.display = 'none';
     document.getElementById('gameOver').innerHTML = `🎉 Game Over! Your final score: ${score}`;
   }
 }
@@ -191,11 +296,7 @@ function choose(choice){
   document.getElementById('score').innerText = `Score: ${score}`;
   showCharacter();
 }
-
-// initialize game
-shuffle(characters);
-showCharacter();
 </script>
 
-</body> 
+</body>
 </html>
