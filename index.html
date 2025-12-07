@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smash or Pass: Anime Edition</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background: linear-gradient(270deg, #ff9ccf, #ff6fa3);
+    background-size: 400% 400%;
+    color: #fff;
+    padding: 50px;
+    animation: gradientBG 15s ease infinite;
+    transition: background 0.5s;
+  }
+
+  @keyframes gradientBG {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px #000;
+  }
+  .card {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s;
+  }
+  .card.animate {
+    transform: scale(1.05);
+  }
+  #characterImage {
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+  #characterName {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #ffe6f0;
+    text-shadow: 1px 1px 3px #000;
+  }
+  #progress {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ffd6e8;
+  }
+  button {
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 10px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  button:hover:enabled {
+    transform: scale(1.1);
+  }
+  .smash { background: #ff4d4d; color: white; }
+  .pass { background: #888; color: white; }
+  #score {
+    margin-top: 20px;
+    font-size: 22px;
+    text-shadow: 1px 1px 2px #000;
+  }
+  #gameOver {
+    font-size: 1.8em;
+    margin-top: 20px;
+    color: #ffd700;
+  }
+</style>
+</head>
+<body>
+
+<h1>Smash or Pass: Anime Edition</h1>
+<div class="card" id="characterCard">
+  <p id="progress">0 / 51</p>
+  <img id="characterImage" src="" alt="Character Image">
+  <p id="characterName">Loading...</p>
+</div>
+<button class="smash" onclick="choose('smash')">❤️ Smash</button>
+<button class="pass" onclick="choose('pass')">❌ Pass</button>
+
+<div id="score">Score: 0</div>
+<div id="gameOver"></div>
+
+<script>
+const characters = [
+  {name: "akaza", img: "images/akaza.jpg"},
+  {name: "tanjiro", img: "images/tanjiro.jpg"},
+  {name: "aki", img: "images/aki.jpg"},
+  {name: "gojo", img: "images/gojo.jpg"},
+  {name: "yuji", img: "images/yuji.jpg"},
+  {name: "light", img: "images/light.jpg"},
+  {name: "l", img: "images/l.jpg"},
+  {name: "muzan (michael jackson)", img: "images/muzan.jpg"},
+  {name: "giyu", img: "images/giyu.jpg"},
+  {name: "megumi", img: "images/megumi.jpg"},
+  {name: "kokichi muta", img: "images/muta.jpg"},
+  {name: "shoko", img: "images/shoko.jpg"},
+  {name: "yuta", img: "images/yuta.jpg"},
+  {name: "ayanokoji", img: "images/ayan.jpg"},
+  {name: "choso", img: "images/choso.jpg"},
+  {name: "denji", img: "images/denji.jpg"},
+  {name: "dieter", img: "images/dieter.jpg"},
+  {name: "douma", img: "images/doma.jpg"},
+  {name: "kokushibo", img: "images/eyes.jpg"},
+  {name: "geto", img: "images/geto.jpg"},
+  {name: "gyomei", img: "images/gyomei.jpg"},
+  {name: "ichigo bleach", img: "images/ichigo.jpg"},
+  {name: "inosuke", img: "images/inosuke.jpg"},
+  {name: "inumaki", img: "images/inumaki.jpg"},
+  {name: "johan", img: "images/johan.jpg"},
+  {name: "kanao", img: "images/kanao.jpg"},
+  {name: "kashimo", img: "images/kashimo.jpg"},
+  {name: "mahito", img: "images/mahito.jpg"},
+  {name: "maki", img: "images/maki.jpg"},
+  {name: "horikita senpai", img: "images/manabu.jpg"},
+  {name: "megukuna", img: "images/megu.jpg"},
+  {name: "mello", img: "images/mello.jpg"},
+  {name: "muichiro", img: "images/muichiro.jpg"},
+  {name: "nanami", img: "images/nanami.jpg"},
+  {name: "naoya", img: "images/naoya.jpg"},
+  {name: "near", img: "images/near.jpg"},
+  {name: "nobara", img: "images/nobara.jpg"},
+  {name: "obanai", img: "images/obanai.jpg"},
+  {name: "rengoku", img: "images/rengoku.jpg"},
+  {name: "sanemi", img: "images/sanemi.jpg"},
+  {name: "shinobu", img: "images/shinobu.jpg"},
+  {name: "subaru fanart", img: "images/subaru.jpg"},
+  {name: "yujikuna", img: "images/sukuna.jpg"},
+  {name: "tenma", img: "images/tenma.jpg"},
+  {name: "toji", img: "images/toji.jpg"},
+  {name: "yoriichi", img: "images/yorichi.jpg"},
+  {name: "zenitsu", img: "images/zeni.jpg"},
+  {name: "gevanni", img: "images/gevanni.jpg"},
+  {name: "matsuda", img: "images/matsuda.jpg"},
+  {name: "jin", img: "images/crack.jpg"},
+  {name: "makima", img: "images/makima.jpg"}
+];
+
+let currentIndex = 0;
+let score = 0;
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function showCharacter() {
+  if(currentIndex < characters.length){
+    const card = document.getElementById('characterCard');
+    card.classList.remove('animate');
+    void card.offsetWidth; // trigger reflow
+    card.classList.add('animate');
+
+    const character = characters[currentIndex];
+    document.getElementById('characterName').innerText = character.name;
+    document.getElementById('characterImage').src = character.img;
+    document.getElementById('progress').innerText = `${currentIndex + 1} / ${characters.length}`;
+
+    document.querySelector('.smash').disabled = false;
+    document.querySelector('.pass').disabled = false;
+  } else {
+    document.getElementById('characterCard').style.display = 'none';
+    document.querySelector('.smash').style.display = 'none';
+    document.querySelector('.pass').style.display = 'none';
+    document.getElementById('gameOver').innerHTML = `🎉 Game Over! Your final score: ${score}`;
+  }
+}
+
+function choose(choice){
+  if(choice === 'smash') score++;
+  currentIndex++;
+  document.getElementById('score').innerText = `Score: ${score}`;
+  showCharacter();
+}
+
+// initialize game
+shuffle(characters);
+showCharacter();
+</script>
+
+</body> 
+</html>
